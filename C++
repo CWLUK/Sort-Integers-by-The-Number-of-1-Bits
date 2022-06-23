@@ -1,0 +1,50 @@
+class Solution {
+public:
+    int countSetBit(int n){
+        int count = 0;
+        while (n){
+            n &= (n - 1);
+            count++;
+        }
+        return count;
+    }
+    
+    vector<int> sortByBits(vector<int>& arr) {
+        map<int, vector<int>> mymap;
+        vector<int> result;
+        
+        for (auto n : arr){
+            mymap[countSetBit(n)].push_back(n);
+        }
+        
+        for (auto m: mymap){
+            sort(m.second.begin(), m.second.end());
+            result.insert(result.end(), m.second.begin(), m.second.end());
+        }
+        return result;
+    }
+};
+/*
+class Solution {
+public:
+    static int countSetBit(int n){
+        int count = 0;
+        while (n){
+            n &= (n - 1);
+            count++;
+        }
+        return count;
+    }
+    
+    static bool compare(int a, int b){
+        int x = countSetBit(a), y = countSetBit(b);
+        return x == y? a < b : x < y;
+        return false;
+    }
+    vector<int> sortByBits(vector<int>& arr) {
+        sort(arr.begin(), arr.end(), compare);
+        return arr;
+    }
+
+};
+*/
